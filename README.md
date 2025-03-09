@@ -6,7 +6,7 @@
 - [**Feedback**](https://github.com/coretrackcreator/NoteX/issues) – Share your thoughts and suggestions.
 - [**Help**](https://github.com/coretrackcreator/NoteX/wiki) – Access the user manual or FAQs.
 
-⚠ Warning: Windows SmartScreen may show a warning because HyperShield does not yet have a digital signature. Click "More info" → "Run anyway" to proceed.
+⚠ Warning: Windows SmartScreen may show a warning because NoteX does not yet have a digital signature. Click "More info" → "Run anyway" to proceed.
 
 NoteX is a simple, fast, and efficient notepad application designed to help you organize your ideas, tasks, and notes in a practical way. With a clean and intuitive interface, NoteX provides a smooth user experience, perfect for anyone who needs a functional note-taking solution every day.
 
