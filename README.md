@@ -6,6 +6,8 @@
 - [**Feedback**](https://github.com/coretrackcreator/NoteX/issues) – Share your thoughts and suggestions.
 - [**Help**](https://github.com/coretrackcreator/NoteX/wiki) – Access the user manual or FAQs.
 
+⚠️ **Warning:** Due to the absence of a digital license, Windows SmartScreen may display a warning when running this application. Please ensure you trust the source before proceeding.
+
 NoteX is a simple, fast, and efficient notepad application designed to help you organize your ideas, tasks, and notes in a practical way. With a clean and intuitive interface, NoteX provides a smooth user experience, perfect for anyone who needs a functional note-taking solution every day.
 
 Key features include the ability to create, edit, and save notes effortlessly, as well as organizing your entries by categories and tags. The app is optimized for performance, ensuring quick access and uninterrupted use whether you're jotting down quick reminders, making to-do lists, or recording creative ideas.
