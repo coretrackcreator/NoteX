@@ -1,0 +1,99 @@
+import tkinter as tk
+from tkinter import filedialog, messagebox
+import os
+
+# Variável global para armazenar o tema atual
+dark_mode = False
+recent_files = []
+
+def save_note():
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")])
+    if file_path:
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(text_area.get("1.0", tk.END))
+        update_recent_files(file_path)
+        messagebox.showinfo("Saved", "Note saved successfully!")
+
+def open_note():
+    file_path = filedialog.askopenfilename(filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")])
+    if file_path:
+        with open(file_path, "r", encoding="utf-8") as file:
+            text_area.delete("1.0", tk.END)
+            text_area.insert(tk.END, file.read())
+        update_recent_files(file_path)
+
+def clear_note():
+    text_area.delete("1.0", tk.END)
+
+def auto_save():
+    with open("autosave.txt", "w", encoding="utf-8") as file:
+        file.write(text_area.get("1.0", tk.END))
+    root.after(5000, auto_save)  # Salva automaticamente a cada 5 segundos
+
+def enable_accessibility():
+    text_area.config(font=("Arial", 16))  # Aumenta o tamanho da fonte
+    messagebox.showinfo("Accessibility", "Accessibility mode enabled: Larger font size")
+
+def enable_colorblind_mode():
+    root.config(bg="#D4A017")  # Fundo mais visível para daltônicos
+    text_area.config(bg="#FFF5EE", fg="#000000")  # Cores mais neutras
+    messagebox.showinfo("Colorblind Mode", "Colorblind mode enabled: Adjusted colors for better visibility")
+
+def toggle_dark_mode():
+    global dark_mode
+    if dark_mode:
+        root.config(bg="white")
+        text_area.config(bg="white", fg="black")
+        dark_mode = False
+    else:
+        root.config(bg="#1e1e1e")
+        text_area.config(bg="#252526", fg="white")
+        dark_mode = True
+
+def update_recent_files(file_path):
+    if file_path not in recent_files:
+        recent_files.insert(0, file_path)
+    if len(recent_files) > 5:
+        recent_files.pop()
+    update_recent_menu()
+
+def open_recent(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        text_area.delete("1.0", tk.END)
+        text_area.insert(tk.END, file.read())
+
+def update_recent_menu():
+    recent_menu.delete(0, tk.END)
+    for file_path in recent_files:
+        recent_menu.add_command(label=os.path.basename(file_path), command=lambda p=file_path: open_recent(p))
+
+root = tk.Tk()
+root.title("NoteX")
+root.geometry("500x400")
+
+text_area = tk.Text(root, font=("Arial", 12))
+text_area.pack(expand=True, fill=tk.BOTH)
+
+menu_bar = tk.Menu(root)
+file_menu = tk.Menu(menu_bar, tearoff=0)
+file_menu.add_command(label="Open", command=open_note)
+file_menu.add_command(label="Save", command=save_note)
+file_menu.add_separator()
+file_menu.add_command(label="Clear", command=clear_note)
+menu_bar.add_cascade(label="File", menu=file_menu)
+
+recent_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Recent Files", menu=recent_menu)
+
+accessibility_menu = tk.Menu(menu_bar, tearoff=0)
+accessibility_menu.add_command(label="Enable Accessibility Mode", command=enable_accessibility)
+accessibility_menu.add_command(label="Enable Colorblind Mode", command=enable_colorblind_mode)
+menu_bar.add_cascade(label="Accessibility", menu=accessibility_menu)
+
+view_menu = tk.Menu(menu_bar, tearoff=0)
+view_menu.add_command(label="Toggle Dark Mode", command=toggle_dark_mode)
+menu_bar.add_cascade(label="View", menu=view_menu)
+
+root.config(menu=menu_bar)
+auto_save()
+root.mainloop()
